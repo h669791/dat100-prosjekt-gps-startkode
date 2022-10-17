@@ -2,53 +2,62 @@ package no.hvl.dat100ptc.oppgave3;
 
 import static java.lang.Math.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import no.hvl.dat100ptc.TODO;
 import no.hvl.dat100ptc.oppgave1.GPSPoint;
 
 public class GPSUtils {
 
 	public static double findMax(double[] da) {
-
-		double max; 
-		
+		double max;
 		max = da[0];
-		
 		for (double d : da) {
 			if (d > max) {
 				max = d;
 			}
 		}
-		
 		return max;
 	}
 
 	public static double findMin(double[] da) {
-
-		double min;
-
 		// TODO - START
+		double min;
+		min = da[0];
 
-		throw new UnsupportedOperationException(TODO.method());
+		for (double d : da) {
+			if (d < min) {
+				min = d;
+			}
 
-		// TODO - SLUT
-
+		}
+		return min;
 	}
+	// TODO - SLUTT
 
 	public static double[] getLatitudes(GPSPoint[] gpspoints) {
 
 		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-		
+		double[] latitudes = new double[gpspoints.length];
+		for (int i = 0; i < gpspoints.length; i++) {
+			latitudes[i] = gpspoints[i].getLatitude();
+		}
+		return latitudes;
 		// TODO - SLUTT
+
 	}
 
 	public static double[] getLongitudes(GPSPoint[] gpspoints) {
 
 		// TODO - START
+		double[] longitude = new double[gpspoints.length];
+		for (int i = 0; i < gpspoints.length; i++) {
+			longitude[i] = gpspoints[i].getLongitude();
+		}
+		return longitude;
 
-		throw new UnsupportedOperationException(TODO.method());
-		
 		// TODO - SLUTT
 
 	}
@@ -61,8 +70,18 @@ public class GPSUtils {
 		double latitude1, longitude1, latitude2, longitude2;
 
 		// TODO - START
+		latitude1 = gpspoint1.getLatitude();
+		latitude2 = gpspoint2.getLatitude();
+		longitude1 = gpspoint1.getLongitude();
+		longitude2 = gpspoint2.getLongitude();
 
-		throw new UnsupportedOperationException(TODO.method());
+		double a = pow(sin(toRadians(latitude2 - latitude1) / 2), 2) + (cos(toRadians(latitude1))
+				* cos(toRadians(latitude2)) * pow(sin((toRadians(longitude2) - toRadians(longitude1)) / 2), 2));
+		System.out.println(a);
+		double c = 2 * (atan2(sqrt(a), sqrt(1 - a)));
+		System.out.println(c);
+		d = R * c;
+		return d;
 
 		// TODO - SLUTT
 
@@ -72,10 +91,13 @@ public class GPSUtils {
 
 		int secs;
 		double speed;
-
 		// TODO - START
+		secs = gpspoint2.getTime() - gpspoint1.getTime();
 
-		throw new UnsupportedOperationException(TODO.method());
+		double distance = GPSUtils.distance(gpspoint2, gpspoint1);
+		speed = (distance / secs) * 3.6;
+
+		return speed;
 
 		// TODO - SLUTT
 
@@ -88,22 +110,30 @@ public class GPSUtils {
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
-		
+		timestr = "";
+		Date d = new Date(secs * 1000L);
+		SimpleDateFormat df = new SimpleDateFormat("  HH" + TIMESEP + "mm" + TIMESEP + "ss");
+		df.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+		timestr = df.format(d);
+
+		return timestr;
+
 		// TODO - SLUTT
 
 	}
+
 	private static int TEXTWIDTH = 10;
 
 	public static String formatDouble(double d) {
 
-		String str;
-
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
-
+		String str = " ";
+		String streng = String.format("%.2f", d).replace(",", ".");
+		str = String.format("%10s", streng);
+		return str;
 		// TODO - SLUTT
-		
+
 	}
 }
