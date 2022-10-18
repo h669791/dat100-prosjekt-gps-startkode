@@ -111,12 +111,11 @@ public class GPSUtils {
 		// TODO - START
 
 		timestr = "";
-		Date d = new Date(secs * 1000L);
-		SimpleDateFormat df = new SimpleDateFormat("  HH" + TIMESEP + "mm" + TIMESEP + "ss");
-		df.setTimeZone(TimeZone.getTimeZone("GMT"));
-
-		timestr = df.format(d);
-
+		int HH = secs / 3600;
+		int mm = (secs % 3600) / 60;
+		int ss = secs % 60;
+		String format = String.format("%02d" + TIMESEP + "%02d" + TIMESEP + "%02d", HH,mm,ss);
+		timestr = String.format("%10s", format);
 		return timestr;
 
 		// TODO - SLUTT
