@@ -67,24 +67,20 @@ public class GPSUtils {
 	public static double distance(GPSPoint gpspoint1, GPSPoint gpspoint2) {
 
 		double d;
-		double latitude1, longitude1, latitude2, longitude2;
+		// double latitude1, longitude1, latitude2, longitude2;
 
 		// TODO - START
-		latitude1 = gpspoint1.getLatitude();
-		latitude2 = gpspoint2.getLatitude();
-		longitude1 = gpspoint1.getLongitude();
-		longitude2 = gpspoint2.getLongitude();
+		double latitude1 = gpspoint1.getLatitude();
+		double latitude2 = gpspoint2.getLatitude();
+		double longitude1 = gpspoint1.getLongitude();
+		double longitude2 = gpspoint2.getLongitude();
 
-		double a = pow(sin(toRadians(latitude2 - latitude1) / 2), 2) + (cos(toRadians(latitude1))
-				* cos(toRadians(latitude2)) * pow(sin((toRadians(longitude2) - toRadians(longitude1)) / 2), 2));
-		System.out.println(a);
+		double a = pow(sin(toRadians(latitude2 - latitude1) / 2), 2) + pow(sin(toRadians(longitude2 - longitude1) / 2), 2) * cos(toRadians(latitude1)) * cos(toRadians(latitude2));
+
 		double c = 2 * (atan2(sqrt(a), sqrt(1 - a)));
-		System.out.println(c);
 		d = R * c;
 		return d;
-
 		// TODO - SLUTT
-
 	}
 
 	public static double speed(GPSPoint gpspoint1, GPSPoint gpspoint2) {
@@ -94,7 +90,7 @@ public class GPSUtils {
 		// TODO - START
 		secs = gpspoint2.getTime() - gpspoint1.getTime();
 
-		double distance = GPSUtils.distance(gpspoint2, gpspoint1);
+		double distance = GPSUtils.distance(gpspoint1, gpspoint2);
 		speed = (distance / secs) * 3.6;
 
 		return speed;
@@ -114,7 +110,7 @@ public class GPSUtils {
 		int HH = secs / 3600;
 		int mm = (secs % 3600) / 60;
 		int ss = secs % 60;
-		String format = String.format("%02d" + TIMESEP + "%02d" + TIMESEP + "%02d", HH,mm,ss);
+		String format = String.format("%02d" + TIMESEP + "%02d" + TIMESEP + "%02d", HH, mm, ss);
 		timestr = String.format("%10s", format);
 		return timestr;
 

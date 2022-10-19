@@ -53,11 +53,17 @@ public class ShowRoute extends EasyGraphics {
 	// antall y-pixels per breddegrad
 	public double ystep() {
 	
-		double ystep;
+		
 		
 		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		double maxlon = GPSUtils.findMax(GPSUtils.getLatitudes(gpspoints));
+		double minlon = GPSUtils.findMax(GPSUtils.getLatitudes(gpspoints));
+		
+		
+		double ystep = MAPYSIZE / (Math.abs(maxlon-minlon));
+		
+		return ystep;
 
 		// TODO - SLUTT
 		
@@ -67,7 +73,8 @@ public class ShowRoute extends EasyGraphics {
 
 		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		//tegner punkter i vinduet tilsvarende (lengegrad, breddegrad). Parameter ybase angir det sted på y-aksen som skal svare til det minste breddegrad som finnes i datafilen. 
+		
 		
 		// TODO - SLUTT
 	}
@@ -81,7 +88,7 @@ public class ShowRoute extends EasyGraphics {
 		
 		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		drawString(gpscomputer.S)
 		
 		// TODO - SLUTT;
 	}

@@ -39,37 +39,36 @@ public class GPSData {
 
 	public boolean insert(String time, String latitude, String longitude, String elevation) {
 		// TODO - START
-		// lage objekt for hver av
+		// lage objekt for hver
 
 		GPSPoint gpspoint;
-		
+
 		int times = GPSDataConverter.toSeconds(time);
 		double latitudes = Double.parseDouble(latitude);
 		double longitudes = Double.parseDouble(longitude);
 		double elevations = Double.parseDouble(elevation);
-		
-		gpspoint = new GPSPoint(times,latitudes,longitudes,elevations);
-		
+
+		gpspoint = new GPSPoint(times, latitudes, longitudes, elevations);
+
 		boolean inserted = insertGPS(gpspoint);
-		
-		return inserted; 
+
+		return inserted;
 
 	}
 
 	// TODO - SLUTT
 	public void print() {
-	
+
 		System.out.println("====== Konvertert GPS Data - START ======");
 
 		// TODO - START
-		
-		for(GPSPoint a : gpspoints) {
+
+		for (GPSPoint a : gpspoints) {
 			System.out.println(a.toString());
 		}
 
 		// TODO - SLUTT
-		
+
 		System.out.println("====== Konvertert GPS Data - SLUTT ======");
 	}
-	}
-
+}

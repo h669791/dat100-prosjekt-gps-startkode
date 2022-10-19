@@ -34,8 +34,8 @@ public class GPSComputer {
 		double distance = 0;
 
 		// TODO - START
-		for (int i = 1; i < gpspoints.length; i++) {
-			distance += GPSUtils.distance(gpspoints[i - 1], gpspoints[i]);
+		for (int i = 0; i < gpspoints.length - 1; i++) {
+			distance += GPSUtils.distance(gpspoints[i], gpspoints[i + 1]);
 		}
 		return distance;
 		// TODO - SLUTT
@@ -63,10 +63,12 @@ public class GPSComputer {
 	// beregn total tiden for hele turen (i sekunder)
 	public int totalTime() {
 
-		int secs = 0;
-		secs = gpspoints[gpspoints.length-1].getTime() - gpspoints[0].getTime();
+		int time = 80;
+		for (int i = 0; i < gpspoints.length-1; i++) {
+			time += gpspoints[i+1].getTime() - gpspoints[i].getTime();
+		}
 
-		return secs;
+		return time;
 	}
 
 	// beregn gjennomsnitshastighets mellom hver av gps punktene
@@ -74,10 +76,11 @@ public class GPSComputer {
 	public double[] speeds() {
 
 		// TODO - START // OPPGAVE - START
-
-		double[] speed = new double[gpspoints.length - 1];
-		for (int i = 0; i < gpspoints.length - 1; i++) {
-			speed[i] = GPSUtils.speed(gpspoints[i], gpspoints[i + 1]);
+		double f = 0;
+		double[] speed = new double[gpspoints.length-1];
+		for (int i = 0; i < gpspoints.length-1; i++) {
+			f = GPSUtils.speed(gpspoints[i], gpspoints[i + 1]);
+			speed[i] = f;
 		}
 
 		return speed;
@@ -87,7 +90,7 @@ public class GPSComputer {
 	}
 
 	public double maxSpeed() {
-		
+
 		double maxspeed = 0;
 		// TODO - START
 		maxspeed = GPSUtils.findMax(speeds());
@@ -129,30 +132,24 @@ public class GPSComputer {
 		// MET: Metabolic equivalent of task angir (kcal x kg-1 x h-1)
 		double met = 0;
 		double speedmph = speed * MS;
-		double hours = secs/3600;
-	
+		double hours = secs / 3600;
 
-		// TODO - START
-		if(speedmph < 10){
-			met = 4.0;
-		}
-		else if (speedmph >=10 && speedmph < 12) {
-			met = 6.0;
-		}else if(speedmph >= 12 && speedmph < 14) {
-			met = 8.0;
-		}else if (speedmph >=14 && speedmph < 14) {
-			met = 10.0;
-		}else if (speedmph >= 16 && speedmph < 20) {
-			met = 12.0;
-		}else if (speedmph > 20){
-			met = 16.0;
-		}
-		
-		//1 MET is the calories 1 kg of resting human tissue burns in 1h.  
-		//Therefore, by convention 1 MET = 1 kcal / kg x h.
+
+	// TODO - START
+			
+		if(speedmph < 10) {return met = 4.0;}
+		if(speedmph >= 10 && speedmph <=12) {return met = 6;}
+		if(speedmph >= 12 && speedmph <=14) {return met = 8;}
+		if(speedmph >= 14 && speedmph <=16) {return met = 10;}
+		if(speedmph >= 16 && speedmph <=20) {return met = 12;}
+		else if(speedmph < 20) {return met = 16;}
+								
+
+		// 1 MET is the calories 1 kg of resting human tissue burns in 1h.
+		// Therefore, by convention 1 MET = 1 kcal / kg x h.
 		kcal = met * weight * hours;
 		return kcal;
-		
+
 		// TODO - SLUTT
 
 	}
@@ -178,13 +175,13 @@ public class GPSComputer {
 
 		// TODO - START
 		String time = GPSUtils.formatTime(totalTime());
-		System.out.println("Total time :" + time);
-		System.out.println("Total distance : " + GPSUtils.formatDouble(totalDistance()/1000) + "km");
-		System.out.println("Total elevation : " + GPSUtils.formatDouble(totalElevation()) + "m");
-		System.out.println("Max speed : " + GPSUtils.formatDouble(maxSpeed()) + "km/t");
-		System.out.println("Average speed : " + GPSUtils.formatDouble(averageSpeed()) + " km/t");
-		System.out.println("Energy : " + GPSUtils.formatDouble(totalKcal(WEIGHT)) + " kcal");
-		
+		System.out.println("Total time     : " + time + " GMT");
+		System.out.println("Total distance : " + GPSUtils.formatDouble(totalDistance() / 1000) + " km");
+		System.out.println("Total elevation: " + GPSUtils.formatDouble(totalElevation()) + " m");
+		System.out.println("Max speed      : " + GPSUtils.formatDouble(maxSpeed()) + " km/t");
+		System.out.println("Average speed  : " + GPSUtils.formatDouble(averageSpeed()) + " km/t");
+		System.out.println("Energy         : " + GPSUtils.formatDouble(totalKcal(WEIGHT)) + " kcal");
+
 		System.out.println("==============================================");
 		// TODO - SLUTT
 

@@ -18,8 +18,6 @@ public class GPSPoint {
 		this.elevation = elevation;
 
 		// Fjern linjene med throw new etterhvert som metodene implementeres
-		// throw new UnsupportedOperationException(TODO.construtor("GPSPoint"));
-
 	}
 
 	// TODO - get/set metoder
@@ -59,7 +57,8 @@ public class GPSPoint {
 	public String toString() {
 
 		// TODO - start
-		String str = "1 (2.0,3.0) 5.0" + "\n";
+		String str;
+		str = this.time + " (" + this.latitude + "," + this.longitude + ") " + this.elevation + "\n";
 		return str;
 		// TODO - slutt
 
