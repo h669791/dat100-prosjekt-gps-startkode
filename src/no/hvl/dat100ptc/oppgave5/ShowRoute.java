@@ -88,7 +88,7 @@ public class ShowRoute extends EasyGraphics {
 		
 		// TODO - START
 		
-		drawString(gpscomputer.S)
+		
 		
 		// TODO - SLUTT;
 	}
